@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Graduate School Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for animations and effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Dark mode toggle styles */
+        .dark-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .dark-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .dark-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #374151;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .dark-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .dark-slider {
+            background-color: #3b82f6;
+        }
+        
+        input:checked + .dark-slider:before {
+            transform: translateX(24px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-blue-600 dark:text-blue-400">Your<span class="text-gray-800 dark:text-gray-100">Name</span></a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="nav-link text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</a>
+                    <a href="#projects" class="nav-link text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Projects</a>
+                    <a href="#research" class="nav-link text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Research</a>
+                    <a href="#publications" class="nav-link text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Publications</a>
+                    <a href="#contact" class="nav-link text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</a>
+                    <label class="dark-toggle flex items-center cursor-pointer">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="dark-slider"></span>
+                    </label>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">About</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">Projects</a>
+                <a href="#research" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">Research</a>
+                <a href="#publications" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">Publications</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a>
+                <div class="px-3 py-2 flex items-center">
+                    <span class="mr-3 text-sm font-medium text-gray-600 dark:text-gray-300">Dark Mode</span>
+                    <label class="dark-toggle flex items-center cursor-pointer">
+                        <input type="checkbox" id="mobileDarkModeToggle">
+                        <span class="dark-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0 fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="text-blue-600 dark:text-blue-400">Your Name</span></h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-4">Computer Engineering Student</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Passionate about [your interests, e.g., machine learning, embedded systems, etc.]. Currently pursuing my undergraduate degree at [Your University] and applying to graduate programs.</p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">Contact Me</a>
+                    <a href="#projects" class="border border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition duration-300">View Projects</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center fade-in delay-1">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-500 dark:border-blue-400 shadow-lg">
+                    <!-- Replace with your actual image -->
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="Your Name" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-xl">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">About Me</h2>
+            <div class="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="fade-in delay-1">
+                <h3 class="text-2xl font-semibold mb-4">Education</h3>
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-lg">[Your University]</h4>
+                                <p class="text-gray-600 dark:text-gray-300">B.S. in Computer Engineering</p>
+                            </div>
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded">2019 - 2023</span>
+                        </div>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">GPA: X.XX/4.0 | Relevant Coursework: [List important courses]</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-lg">[Other Education]</h4>
+                                <p class="text-gray-600 dark:text-gray-300">[Degree or program]</p>
+                            </div>
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded">Dates</span>
+                        </div>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">[Details about this education]</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fade-in delay-2">
+                <h3 class="text-2xl font-semibold mb-4">Skills & Expertise</h3>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                    <h4 class="font-bold text-lg mb-3">Technical Skills</h4>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Python</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">C/C++</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Java</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">PyTorch</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Verilog</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">ARM Assembly</span>
+                    </div>
+                    
+                    <h4 class="font-bold text-lg mb-3">Tools & Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Git</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Docker</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">Linux</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">AWS</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">MATLAB</span>
+                        <span class="bg-gray-200 dark:bg-gray-600 px-3 py-1 rounded-full text-sm">LaTeX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Featured Projects</h2>
+            <div class="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-transform duration-300 fade-in delay-1">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold">Neural Network Accelerator</h3>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Designed and implemented a hardware accelerator for neural networks using FPGA and Verilog, achieving 5x speedup over software implementation.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Verilog</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">FPGA</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Neural Networks</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-transform duration-300 fade-in delay-2">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80" alt="Project 2" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold">Autonomous Robot Navigation</h3>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Developed an autonomous navigation system for a robot using ROS, computer vision, and SLAM algorithms, capable of mapping and navigating unknown environments.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">ROS</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Computer Vision</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">SLAM</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-transform duration-300 fade-in delay-3">
+                <div class="h-48 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold">Secure Messaging App</h3>
+                        <div class="flex space-x-2">
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Built an end-to-end encrypted messaging application with user authentication and secure key exchange protocol implementation.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">React</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Node.js</span>
+                        <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">Cryptography</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12 fade-in delay-3">
+            <a href="#" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                View All Projects
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-xl">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Research Experience</h2>
+            <div class="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto"></div>
+        </div>
+        
+        <div class="space-y-8">
+            <!-- Research 1 -->
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow fade-in delay-1">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold">Undergraduate Research Assistant</h3>
+                        <p class="text-blue-600 dark:text-blue-400 font-medium">[University Name] - [Lab Name]</p>
+                    </div>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium px-3 py-1 rounded-full">May 2022 - Present</span>
+                </div>
+                <div class="mt-4">
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                        <li>Researched and implemented novel algorithms for [specific research topic] under the guidance of Prof. [Name]</li>
+                        <li>Developed a simulation framework in Python to evaluate the performance of different approaches</li>
+                        <li>Presented findings at [conference name] and co-authored a paper currently under review</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Research 2 -->
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow fade-in delay-2">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-xl font-bold">Summer Research Intern</h3>
+                        <p class="text-blue-600 dark:text-blue-400 font-medium">[Institution Name]</p>
+                    </div>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium px-3 py-1 rounded-full">June 2021 - August 2021</span>
+                </div>
+                <div class="mt-4">
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300">
+                        <li>Investigated [research topic] as part of the [program name] summer research program</li>
+                        <li>Designed and conducted experiments to [specific research goal]</li>
+                        <li>Created visualization tools to analyze experimental results using MATLAB and Python</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Publications</h2>
+            <div class="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto"></div>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Publication 1 -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 fade-in delay-1">
+                <div class="flex flex-col md:flex-row md:justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Title of Your Publication</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-2">Authors: Your Name, Coauthor 1, Coauthor 2</p>
+                        <p class="text-gray-600 dark:text-gray-300">Journal/Conference: [Journal/Conference Name], Year</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex items-center">
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center">
+                            <i class="fas fa-file-pdf mr-2"></i> PDF
+                        </a>
+                        <span class="mx-3 text-gray-400">|</span>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center">
+                            <i class="fas fa-link mr-2"></i> DOI
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Publication 2 -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 fade-in delay-2">
+                <div class="flex flex-col md:flex-row md:justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Another Publication Title</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-2">Authors: Coauthor 1, Your Name, Coauthor 3</p>
+                        <p class="text-gray-600 dark:text-gray-300">Journal/Conference: [Journal/Conference Name], Year</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex items-center">
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center">
+                            <i class="fas fa-file-pdf mr-2"></i> PDF
+                        </a>
+                        <span class="mx-3 text-gray-400">|</span>
+                        <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center">
+                            <i class="fas fa-link mr-2"></i> DOI
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-xl">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+            <div class="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="fade-in delay-1">
+                <h3 class="text-2xl font-semibold mb-4">Contact Information</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">Feel free to reach out if you're interested in my work or have any questions about my research and projects.</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-full mr-4">
+                            <i class="fas fa-envelope text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Email</h4>
+                            <a href="mailto:your.email@example.com" class="text-blue-600 dark:text-blue-400 hover:underline">your.email@example.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-full mr-4">
+                            <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Location</h4>
+                            <p class="text-gray-600 dark:text-gray-300">[Your University], [City, Country]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-full mr-4">
+                            <i class="fas fa-phone text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Phone</h4>
+                            <p class="text-gray-600 dark:text-gray-300">+1 (123) 456-7890</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8">
+                    <h4 class="font-medium mb-4">Connect with me</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-gray-200 dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="bg-gray-200 dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-800 dark:hover:bg-gray-600 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="bg-gray-200 dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-blue-400 dark:hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-gray-200 dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-red-500 dark:hover:bg-red-600 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fade-in delay-2">
+                <form class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="subject" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Subject</label>
+                        <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="message" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-800 text-gray-300">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-xl font-bold text-blue-400">Your<span class="text-gray-300">Name</span></a>
+                    <p class="mt-2">Computer Engineering Student & Researcher</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-red-400 transition-colors duration-300">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm">
+                <p>&copy; 2023 Your Name. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mobileDarkModeToggle = document.getElementById('mobileDarkModeToggle');
+        
+        // Check for saved theme preference or use system preference
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            darkModeToggle.checked = true;
+            mobileDarkModeToggle.checked = true;
+        }
+        
+        // Toggle dark mode
+        function toggleDarkMode(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+            }
+        }
+        
+        darkModeToggle.addEventListener('change', (e) => {
+            toggleDarkMode(e.target.checked);
+            mobileDarkModeToggle.checked = e.target.checked;
+        });
+        
+        mobileDarkModeToggle.addEventListener('change', (e) => {
+            toggleDarkMode(e.target.checked);
+            darkModeToggle.checked = e.target.checked;
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
